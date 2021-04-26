@@ -1,0 +1,13 @@
+@import "./essentials";
+
+.footer {
+    background-color: $secondary-color;
+
+    p {
+        margin: 0;
+        padding: 0.5rem;
+        text-align: center;
+        font-size: 1.25rem;
+        color: $color-white;
+    }
+}

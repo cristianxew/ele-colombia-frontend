@@ -1,0 +1,26 @@
+@import "./essentials";
+
+.teacher {
+    .row {
+        .col-sm-4 {
+            img {
+                max-width: 283px;
+            }
+        }
+
+        .col-sm-8 {
+            .teacher__info {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                padding: 1rem 1rem 1rem 0;
+                height: 100%;
+
+                h4 a {
+                    text-decoration: none;
+                    color: $terciary-color;
+                }
+            }
+        }
+    }
+}

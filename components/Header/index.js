@@ -1,0 +1,126 @@
+import React, { useState, useEffect, useRef } from 'react'
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+    faMicrophoneAlt,
+    faAssistiveListeningSystems,
+    faBookReader,
+    faPencilAlt,
+    faHome,
+    faSignOutAlt,
+    faUserCircle,
+    faLock
+} from '@fortawesome/free-solid-svg-icons'
+// import colombiaFlag from "/colombia-flag.png";
+// import styles from "../../styles/Header.module.scss"
+
+const isLoggedIn = false
+
+const MenuLinks = ({ className }) => {
+    const authenticatedLinks = [{
+        text: 'Home',
+        link: '/',
+        icon: <FontAwesomeIcon icon={faHome} />
+    }, {
+        text: 'Escuchar',
+        link: '/escuchar',
+        icon: <FontAwesomeIcon icon={faAssistiveListeningSystems} />
+    }, {
+        text: 'Hablar',
+        link: '/hablar',
+        icon: <FontAwesomeIcon icon={faMicrophoneAlt} />
+    }, {
+        text: 'Leer',
+        link: '/leer',
+        icon: <FontAwesomeIcon icon={faBookReader} />
+    }, {
+        text: 'Escribir',
+        link: '/escribir',
+        icon: <FontAwesomeIcon icon={faPencilAlt} />
+    }, {
+        text: 'Cerrar sesion',
+        link: '/account/logout',
+        icon: <FontAwesomeIcon icon={faPencilAlt} />
+    }
+    ]
+    const defaultLinks = [
+        {
+            text: 'Iniciar Sesion',
+            link: '/account/login',
+            icon: <FontAwesomeIcon icon={faLock} />
+        }, {
+            text: 'Registrarse',
+            link: '/account/register',
+            icon: <FontAwesomeIcon icon={faUserCircle} />
+        }
+    ]
+    return (
+        <nav id="menu" className={className} >
+            <ul>
+                {isLoggedIn ? (
+                    authenticatedLinks.map((link, i) =>
+                        <li key={i + 1}>
+                            <Link href={link.link}>{link.text}</Link>
+                            <i > {link.icon}</i>
+                        </li>
+                    )
+                ) : (
+                    defaultLinks.map((link, i) =>
+                        <li key={i + 1}>
+                            <Link href={link.link}>{link.text}</Link>
+                            <i > {link.icon}</i>
+                        </li>
+                    )
+                )}
+            </ul>
+        </nav>
+    )
+}
+
+const Header = () => {
+    const [isOpen, setIsOpen] = useState(false)
+    const menuRef = useRef();
+
+    useEffect(() => {
+        const handleDocumentClick = (e) => {
+            if ((menuRef.current !== e.target) && isOpen === true) {
+                setIsOpen(false)
+            };
+        }
+        document.addEventListener("click", handleDocumentClick)
+        return function cleanup() {
+            document.removeEventListener('click', handleDocumentClick);
+        }
+    }, [isOpen])
+
+    const toggleMenu = (e) => {
+        e.stopPropagation();
+        setIsOpen(!isOpen)
+    }
+    return (
+        <header className="header">
+            <Link href="/">
+                <div className="header__ele-colombia">
+                    <div className="header__ele-colombia__flag">
+                        <img src="/colombia-flag.png" alt="ele colombia" />
+                    </div>
+                    <h1>ELE <span>colombia</span></h1>
+                </div>
+            </Link>
+            <div className="header__menu" ref={menuRef}>
+                <div className="header__menu__bar">
+                    <div className="header__menu__bar__clicker" onClick={toggleMenu}></div>
+                    <div className={`header__menu__bar__hamburguer ${isOpen ? "isOpen" : ""}`}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <MenuLinks className={isOpen ? "isOpen" : ""} />
+            </div>
+        </header>
+    )
+}
+
+export default Header
