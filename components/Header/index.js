@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import AuthContext from "../../context/authContext"
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -11,12 +12,11 @@ import {
     faUserCircle,
     faLock
 } from '@fortawesome/free-solid-svg-icons'
-// import colombiaFlag from "/colombia-flag.png";
-// import styles from "../../styles/Header.module.scss"
 
-const isLoggedIn = false
+
 
 const MenuLinks = ({ className }) => {
+    const { user, logout } = useContext(AuthContext)
     const authenticatedLinks = [{
         text: 'Home',
         link: '/',
@@ -37,11 +37,7 @@ const MenuLinks = ({ className }) => {
         text: 'Escribir',
         link: '/escribir',
         icon: <FontAwesomeIcon icon={faPencilAlt} />
-    }, {
-        text: 'Cerrar sesion',
-        link: '/account/logout',
-        icon: <FontAwesomeIcon icon={faPencilAlt} />
-    }
+    },
     ]
     const defaultLinks = [
         {
@@ -57,13 +53,20 @@ const MenuLinks = ({ className }) => {
     return (
         <nav id="menu" className={className} >
             <ul>
-                {isLoggedIn ? (
-                    authenticatedLinks.map((link, i) =>
-                        <li key={i + 1}>
-                            <Link href={link.link}>{link.text}</Link>
-                            <i > {link.icon}</i>
+                {user ? (
+                    <>
+                        {authenticatedLinks.map((link, i) =>
+                            <li key={i + 1}>
+                                <Link href={link.link}>{link.text}</Link>
+                                <i > {link.icon}</i>
+                            </li>
+                        )}
+                        <li onClick={() => logout()}>
+                            <span> Cerrar sesion</span>
+                            <i > <FontAwesomeIcon icon={faSignOutAlt} /></i>
                         </li>
-                    )
+                    </>
+
                 ) : (
                     defaultLinks.map((link, i) =>
                         <li key={i + 1}>
