@@ -1,11 +1,12 @@
 import React from "react"
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faPlay,
     faPause,
     faBackward,
     faForward,
-    faHeadphones,
     faAssistiveListeningSystems,
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -97,7 +98,7 @@ class AudioPlayer extends React.Component {
     }
 
     updatePlayer = () => {
-        const { musicList } = this.props
+        const { musicList } = this.props;
         const { index } = this.state;
         const currentSong = musicList[index];
         const audio = new Audio(currentSong.audio.url);
@@ -112,8 +113,11 @@ class AudioPlayer extends React.Component {
             index: (index + 1) % musicList.length
         });
         this.updatePlayer();
+
         if (pause) {
-            this.playerRef.play();
+            setTimeout(() => {
+                this.playerRef.play();
+            }, 200)
         }
     };
 
@@ -125,8 +129,11 @@ class AudioPlayer extends React.Component {
             index: (index + musicList.length - 1) % musicList.length
         });
         this.updatePlayer();
+
         if (pause) {
-            this.playerRef.play();
+            setTimeout(() => {
+                this.playerRef.play();
+            }, 200)
         }
     };
 
@@ -165,68 +172,68 @@ class AudioPlayer extends React.Component {
 
         return (
             <div className="audio-player">
-                <div className="current-song">
-                    <audio ref={ref => this.playerRef = ref}>
-                        <source src={currentSong.audio.url} />
+                <Row noGutters={true}>
+                    <Col lg={5}>
+                        <div className="play-list" >
+                            {musicList.map((music, key = 0) =>
+                                <div key={key}
+                                    onClick={() => this.clickAudio(key)}
+                                    className={"track " +
+                                        (index === key && !pause ? 'current-audio' : '') +
+                                        (index === key && pause ? 'play-now' : '')} >
+                                    <div className="track-discr" >
+                                        <span className="track-name" >{
+                                            music.nombre.length > 30 ?
+                                                `${music.nombre.substring(0, 30)}...` :
+                                                music.nombre
+                                        }</span>
+                                        {/*   <span className="track-author" >Autor</span> */}
+                                    </div>
+                                    <span className="track-duration" >
+                                        {(index === key)
+                                            ? currentTime
+                                            : this.formatTime(music.audio.duration)
+                                        }
+                                    </span>
+                                </div>
+                            )}
+                        </div>
+                    </Col>
+                    <Col lg={7}>
+                        <div className="current-song">
+                            <audio ref={ref => this.playerRef = ref}>
+                                <source src={currentSong.audio.url} />
                         Your browser does not support the audio element.
                     </audio>
-                    <div className="img-wrap">
-                        <FontAwesomeIcon icon={faAssistiveListeningSystems} />
-                    </div>
-                    <span className="song-name">{currentSong.nombre}</span>
-
-                    <div className="time">
-                        <div className="current-time">{currentTime}</div>
-                        <div className="end-time">{this.formatTime(currentSong.audio.duration)}</div>
-                    </div>
-
-                    <div ref={ref => this.timelineRef = ref} id="timeline">
-                        <div ref={ref => this.playheadRef = ref} id="playhead"></div>
-                        <div ref={ref => this.hoverPlayheadRef = ref} className="hover-playhead" data-content="0:00"></div>
-                    </div>
-
-                    <div className="controls">
-                        <button onClick={this.prevSong} className="prev prev-next current-btn"><FontAwesomeIcon icon={faBackward} /></button>
-
-                        <button onClick={this.playOrPause} className="play current-btn">
-                            {
-                                (!pause) ? <FontAwesomeIcon icon={faPlay} />
-                                    : <FontAwesomeIcon icon={faPause} />
-                            }
-                        </button>
-                        <button onClick={this.nextSong} className="next prev-next current-btn"><FontAwesomeIcon icon={faForward} /></button>
-                    </div>
-
-                </div>
-                <div className="play-list" >
-                    {musicList.map((music, key = 0) =>
-                        <div key={key}
-                            onClick={() => this.clickAudio(key)}
-                            className={"track " +
-                                (index === key && !pause ? 'current-audio' : '') +
-                                (index === key && pause ? 'play-now' : '')} >
-
-                            {/* <div className="track-img" >
-                                <FontAwesomeIcon icon={faHeadphones} />
-                            </div> */}
-
-                            <div className="track-discr" >
-                                <span className="track-name" >{
-                                    music.nombre.length > 30 ?
-                                        `${music.nombre.substring(0, 30)}...` :
-                                        music.nombre
-                                }</span>
-                                {/*   <span className="track-author" >Autor</span> */}
+                            <div className="img-wrap">
+                                <FontAwesomeIcon icon={faAssistiveListeningSystems} />
                             </div>
-                            <span className="track-duration" >
-                                {(index === key)
-                                    ? currentTime
-                                    : this.formatTime(music.audio.duration)
-                                }
-                            </span>
+                            <span className="song-name">{currentSong.nombre}</span>
+
+                            <div className="time">
+                                <div className="current-time">{currentTime}</div>
+                                <div className="end-time">{this.formatTime(currentSong.audio.duration)}</div>
+                            </div>
+
+                            <div ref={ref => this.timelineRef = ref} id="timeline">
+                                <div ref={ref => this.playheadRef = ref} id="playhead"></div>
+                                <div ref={ref => this.hoverPlayheadRef = ref} className="hover-playhead" data-content="0:00"></div>
+                            </div>
+
+                            <div className="controls">
+                                <button onClick={this.prevSong} className="prev prev-next current-btn"><FontAwesomeIcon icon={faBackward} /></button>
+
+                                <button onClick={this.playOrPause} className="play current-btn">
+                                    {
+                                        (!pause) ? <FontAwesomeIcon icon={faPlay} />
+                                            : <FontAwesomeIcon icon={faPause} />
+                                    }
+                                </button>
+                                <button onClick={this.nextSong} className="next prev-next current-btn"><FontAwesomeIcon icon={faForward} /></button>
+                            </div>
                         </div>
-                    )}
-                </div>
+                    </Col>
+                </Row>
             </div>
         )
     }
