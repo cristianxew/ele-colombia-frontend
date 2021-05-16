@@ -2,25 +2,47 @@
 
 .teacher {
     .row {
-        .col-sm-4 {
+        .col-sm-3 {
             img {
-                max-width: 283px;
+                max-width: 100%;
+                border-top-left-radius: 1rem;
             }
         }
 
-        .col-sm-8 {
+        .col-sm-9 {
             .teacher__info {
                 display: flex;
                 justify-content: center;
                 flex-direction: column;
                 padding: 1rem 1rem 1rem 0;
                 height: 100%;
+                align-items: center;
 
-                h4 a {
+                h5 a {
                     text-decoration: none;
                     color: $terciary-color;
                 }
             }
         }
+    }
+}
+
+.hecho-con-amor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+
+    h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-right: 1.5rem;
+        // letter-spacing: 3px;
+        color: $terciary-color;
+        // margin: 0
+    }
+
+    svg path {
+        fill: $primary-color;
     }
 }

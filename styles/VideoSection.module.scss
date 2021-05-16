@@ -1,6 +1,44 @@
 .video {
     display: flex;
     justify-content: center;
-    background-color: $color-green;
-    padding: 1.5rem;
+    padding: 4rem 0;
+    height: 500px;
+    // background-color: rgba($terciary-color, 0.1);
+    // padding: 0 1.5rem 0 0;
+
+    /* .row {
+        display: flex;
+        justify-content: center;
+    } */
+
+    &__desc {
+        height: 100%;
+        padding-right: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        p {
+            font-size: 1.25rem;
+        }
+
+        a {
+            margin-top: 1rem;
+            width: fit-content;
+
+            &:hover {
+                text-decoration: none;
+
+            }
+        }
+    }
+
+    div {
+
+        video,
+        .react-player__preview {
+            border-top-right-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+        }
+    }
 }
