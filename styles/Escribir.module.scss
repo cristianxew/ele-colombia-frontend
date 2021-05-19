@@ -3,8 +3,22 @@
     padding: 2rem;
     margin-bottom: 2rem;
 
-    &__title {
-        margin: 3rem 0;
+    &__top {
+
+        margin-bottom: 2rem;
+
+        &__img {
+            object-fit: cover;
+            border-radius: 4px;
+            // margin-right: 1rem;
+        }
+
+        &__title {
+            display: flex;
+            align-items: center;
+            padding: 0 2rem 0 0;
+            min-height: 165px;
+        }
     }
 
     .refranes-container {

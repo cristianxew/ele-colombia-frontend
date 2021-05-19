@@ -1,13 +1,16 @@
-import React, { useState } from "react"
-import Layout from "../../components/Layout"
-import { parseCookies } from "../../helpers/index"
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import Layout from "../../components/Layout";
+import { parseCookies } from "../../helpers/index";
 import { EditText } from 'react-edit-text';
-import Form from 'react-bootstrap/Form'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import { URL_API } from "../../config/index"
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { URL_API } from "../../config/index";
+import MySlider from "../../components/Slider"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const Leer = ({ token }) => {
@@ -48,6 +51,11 @@ const Leer = ({ token }) => {
             respuesta: null
         },
         {
+            significado: "Se utiliza cuando en una conversación se está mencionando  a una persona ausente y justo en ese momento hace acto de presencia.",
+            refran: "Hablando del rey de Roma y ahí asoma.",
+            respuesta: null
+        },
+        {
             significado: "Existen diferentes maneras de hacer las cosas.",
             refran: "Cada uno mata las pulgas a su manera.",
             respuesta: null
@@ -55,11 +63,6 @@ const Leer = ({ token }) => {
         {
             significado: "Dos o más personas pueden encontrar la solución a una problemática de forma más sencilla y rápida.",
             refran: "Dos cabezas piensan mejor que una.",
-            respuesta: null
-        },
-        {
-            significado: "Se utiliza cuando en una conversación se está mencionando  a una persona ausente y justo en ese momento hace acto de presencia.",
-            refran: "Hablando del rey de Roma y ahí asoma.",
             respuesta: null
         },
         {
@@ -155,18 +158,33 @@ const Leer = ({ token }) => {
         <Layout >
             <ToastContainer position="top-center" />
             <div className="pagina-leer">
-                <h1 className="pagina-leer__title title">A continuación encuentran los significados
-                de los refranes, escriban el refrán según
-                corresponda.</h1>
+                <div className="pagina-leer__top">
+                    <Row noGutters >
+                        <Col md={9}>
+                            <div className="pagina-leer__top__title">
+
+                                <h1 className="title">A continuación encuentran los significados
+                                de los refranes.</h1>
+                            </div>
+                        </Col>
+                        <Col md={3}>
+                            <Image loading="eager" priority={true} className="pagina-leer__top__img" src="/tabla-bus.png" layout="fill" />
+                        </Col>
+                    </Row>
+                </div>
+                <div className="pagina-leer__slider">
+                    <MySlider />
+                </div>
                 <div className="refranes-container">
+                    <h1 className="title">escriban el refrán según
+                corresponda.</h1>
                     <Row>
-                        {/*   <Col md={7}> */}
                         {refranes.map((refran, i) => (
-                            <Col md={6} key={i}>
-                                <div className={`refranes-container__item ${refran.respuesta ? "refranes-container__item--correct" : refran.respuesta === false ? "refranes-container__item--wrong" : ""}`}>
+                            <Col md={6} lg={4} key={i}>
+                                <div className={`refranes-container__significados ${refran.respuesta ? "refranes-container__item--correct" : refran.respuesta === false ? "refranes-container__item--wrong" : ""}`}>
                                     <EditText
                                         name="refranUno"
-                                        placeholder="_______________________________________________"
+                                        placeholder="___________________________"
                                         style={{ color: 'gray', width: "90%" }}
                                         onSave={({ value }) => {
                                             setRespuestas(prevState => ({
@@ -179,54 +197,25 @@ const Leer = ({ token }) => {
                                 </div>
                             </Col>
                         ))}
-                        {/*  </Col> */}
-                        {/* <Col md={5}>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">a.</span>
-                                <span>a su manera.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">b.</span>
-                                <span>y ahí asoma.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">c.</span>
-                                <span>mejor que una.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">d.</span>
-                                <span>algo se le pega.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">e.</span>
-                                <span>pocas palabras.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">f.</span>
-                                <span>buena cara.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">g.</span>
-                                <span>caerle.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">h.</span>
-                                <span>se le quema el pan en la puerta del horno.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">i.</span>
-                                <span>nochebuena.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">j.</span>
-                                <span>corazón contento.</span>
-                            </div>
-                        </Col> */}
                     </Row>
                 </div>
                 <div className="refranes-container__button" >
                     <button className="my-btn" onClick={validateAnswers} >Validar</button>
                 </div>
+                {/* <div className="refranes-container__refranes">
+                    <h1 className="title">Refranes</h1>
+                    <Row>
+                        <ul>
+                            {refranes.map((item, i) => {
+                                return (
+                                    <Col key={i} md={4}>
+                                        <li>{item.refran}</li>
+                                    </Col>
+                                )
+                            })}
+                        </ul>
+                    </Row>
+                </div> */}
                 <div className="refranes-container__enviar-tarea">
                     <h1 className="title" >Enviar evidencia</h1>
                     <p>Toma un screen-print o foto de sus respuestas y envíala a través del siguiente formulario</p>
@@ -259,5 +248,15 @@ export function getServerSideProps({ req }) {
         },
     }
 }
+
+/* export async function getStaticProps() {
+    const res = await fetch(`${URL_API}/pagina-leer`);
+    const data = await res.json();
+
+    return {
+        props: { data },
+        revalidate: 1
+    }
+} */
 
 export default Leer

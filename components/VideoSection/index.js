@@ -17,7 +17,7 @@ const VideoSection = ({ video, user }) => {
                 </Col>
                 <Col md={5}>
                     <div className="video__desc">
-                        <h1 className="title">Titulo</h1>
+                        <h1 className="title">Introducción</h1>
                         <p >
                             En el presente material didáctico encontraran 10 refranes
                             colombianos con los cuales se abordan las cuadro habilidades del

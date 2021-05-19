@@ -1,7 +1,7 @@
 @import "./essentials";
 
 .root {
-    background-color: oldlace;
+    background-color: $color-white;
 }
 
 .App {
@@ -15,6 +15,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.pagina-inicio {
+    padding: 2rem 2rem 4rem 2rem;
 }
 
 .page-register,

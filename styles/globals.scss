@@ -2,6 +2,48 @@
 
 body {
     margin: 0;
-    font-family: 'Amaranth', sans-serif;
+    // font-family: 'Kalam', cursive;
+    font-family: 'Amaranth',
+        sans-serif;
     overflow-x: hidden;
+}
+
+.my-btn {
+    padding: 0.5rem 3rem;
+    font-size: 1.25rem;
+    border: none;
+    border-radius: 1rem;
+    background-color: $terciary-color;
+    transition: all 0.3s ease;
+    color: $color-white;
+
+    &:hover {
+        background-color: $secondary-color;
+    }
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: $terciary-color;
+}
+
+.Toastify__toast {
+    font-family: 'Amaranth',
+        sans-serif !important;
+}
+
+.Toastify__toast--info {
+    background-color: $terciary-color !important;
+    color: $color-white !important;
+}
+
+.Toastify__toast--success {
+    background-color: $secondary-color !important;
+    color: $color-white !important;
+}
+
+.Toastify__toast--error {
+    background-color: $primary-color !important;
+    color: $color-white !important;
 }

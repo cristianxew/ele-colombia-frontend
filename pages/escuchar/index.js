@@ -12,7 +12,7 @@ const Escuchar = ({ data }) => {
             <div className="pagina-escuchar">
                 <div className="pagina-escuchar__top">
                     <Row noGutters >
-                        <Col md={10}>
+                        <Col md={9}>
                             <div className="pagina-escuchar__top__title">
                                 <h1 className="title" >¿Qué es el refrán?</h1>
                                 <p>Los refranes constituyen un material lingüístico
@@ -27,8 +27,8 @@ const Escuchar = ({ data }) => {
                                 hablantes nativos. (Bouallsl, 2015)</p>
                             </div>
                         </Col>
-                        <Col md={2}>
-                            <Image className="pagina-leer__top__img" src="/colombia-map.jpeg" layout="fill" />
+                        <Col md={3}>
+                            <Image loading="eager" priority={true} className="pagina-leer__top__img" src="/monserrate.png" layout="fill" />
                         </Col>
                     </Row>
                 </div>

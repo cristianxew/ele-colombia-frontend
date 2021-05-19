@@ -7,7 +7,6 @@ import {
     faAssistiveListeningSystems,
     faBookReader,
     faPencilAlt,
-    faHome,
     faSignOutAlt,
     faUserCircle,
     faLock
@@ -18,17 +17,9 @@ import {
 const MenuLinks = ({ className }) => {
     const { user, logout } = useContext(AuthContext)
     const authenticatedLinks = [{
-        text: 'Home',
-        link: '/',
-        icon: <FontAwesomeIcon icon={faHome} />
-    }, {
         text: 'Escuchar',
         link: '/escuchar',
         icon: <FontAwesomeIcon icon={faAssistiveListeningSystems} />
-    }, {
-        text: 'Hablar',
-        link: '/hablar',
-        icon: <FontAwesomeIcon icon={faMicrophoneAlt} />
     }, {
         text: 'Leer',
         link: '/leer',
@@ -37,7 +28,11 @@ const MenuLinks = ({ className }) => {
         text: 'Escribir',
         link: '/escribir',
         icon: <FontAwesomeIcon icon={faPencilAlt} />
-    },
+    }, {
+        text: 'Hablar',
+        link: '/hablar',
+        icon: <FontAwesomeIcon icon={faMicrophoneAlt} />
+    }
     ]
     const defaultLinks = [
         {

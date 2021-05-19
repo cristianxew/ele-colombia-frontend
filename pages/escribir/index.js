@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import Image from "next/image"
 import Layout from "../../components/Layout"
 import { parseCookies } from "../../helpers/index"
 import { EditText } from 'react-edit-text';
@@ -115,7 +116,18 @@ const Escribir = ({ token }) => {
         <Layout >
             <ToastContainer position="top-center" />
             <div className="pagina-escribir">
-                <h1 className="pagina-escribir__title title">Completa cada refrán</h1>
+                <div className="pagina-escribir__top">
+                    <Row noGutters>
+                        <Col md={10}>
+                            <div className="pagina-escribir__top__title">
+                                <h1 className="title">Completa cada refrán</h1>
+                            </div>
+                        </Col>
+                        <Col md={2}>
+                            <Image loading="eager" priority={true} className="pagina-escribir__top__img" src="/poporo.png" layout="fill" />
+                        </Col>
+                    </Row>
+                </div>
                 <div className="refranes-container">
                     <Row>
                         <Col md={7}>
@@ -190,7 +202,7 @@ const Escribir = ({ token }) => {
                     <p>Toma un screen-print o foto de sus respuestas y envíala a través del siguiente formulario</p>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="imagen">
-                            <Form.Label>Seleccionar imagen</Form.Label>
+                            <Form.Label>Imagen</Form.Label>
                             <Form.Control key={key} onChange={handleFileChange} type="file" accept="image/*" />
                         </Form.Group>
                         <Form.Group controlId="comentario">

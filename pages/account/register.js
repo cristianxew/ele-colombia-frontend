@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
+import AuthContext from "../../context/authContext"
 import Form from 'react-bootstrap/Form'
 import Button from "react-bootstrap/Button"
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,18 +13,25 @@ export default function RegisterPage() {
     const [password, setPassword] = useState("")
     const [passwordConfirm, setPasswordConfirm] = useState("")
 
+    const { register, error } = useContext(AuthContext)
+
+    useEffect(() => error && toast.error(error))
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (password !== passwordConfirm) {
             toast("Las contraseñas no coinciden")
+            return
         }
+
+        register({ username, email, password })
     }
     return (
         <Layout>
             <div className="page page-register">
                 <Form onSubmit={handleSubmit}>
                     <h1>Registrarse</h1>
-                    <ToastContainer />
+                    <ToastContainer position="top-center" />
                     <Form.Group controlId="username">
                         <Form.Label>Nombre de usuario</Form.Label>
                         <Form.Control value={username} onChange={(e) => setUsername(e.target.value)} type="text" placeholder="Nombre se usuario" />
