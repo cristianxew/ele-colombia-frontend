@@ -1,11 +1,29 @@
 @import "./essentials";
 
+html {
+    font-size: 100%;
+
+    @media screen and(max-width: 576px) {
+        font-size: 75%;
+    }
+
+    @media screen and(max-width: 768px) {
+        font-size: 80%;
+    }
+
+    @media screen and(max-width: 992px) {
+        font-size: 90%;
+    }
+}
+
 body {
     margin: 0;
     // font-family: 'Kalam', cursive;
     font-family: 'Amaranth',
         sans-serif;
     overflow-x: hidden;
+    // font-size: 100%;
+
 }
 
 .my-btn {

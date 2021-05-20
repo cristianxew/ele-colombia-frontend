@@ -13,6 +13,11 @@
                 align-items: center;
                 flex-direction: column;
 
+                @media screen and(max-width: 576px) {
+                    margin-top: 2rem;
+                    justify-content: space-between;
+                }
+
                 div {
                     &:first-child {
                         border-radius: 0.5rem;
@@ -39,6 +44,10 @@
                 padding: 1rem 1rem 1rem 0;
                 height: 100%;
 
+                @media screen and(max-width: 576px) {
+                    text-align: center;
+                }
+
                 h5 a {
                     text-decoration: none;
                     color: $terciary-color;
@@ -54,6 +63,10 @@
     align-items: center;
     font-size: 2.5rem;
     width: 100%;
+
+    @media screen and(max-width: 576px) {
+        justify-content: center;
+    }
 
     h2 {
         font-size: 2.5rem;

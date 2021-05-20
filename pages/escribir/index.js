@@ -135,18 +135,20 @@ const Escribir = ({ token }) => {
                                 <div key={i}
                                     className={`refranes-container__item ${refran.respuesta ? "refranes-container__item--correct" : refran.respuesta === false ? "refranes-container__item--wrong" : ""}`}>
                                     <span className="refranes-container__item__number">{`${i + 1}`}</span>
-                                    <span>{refran.comienzo}</span>
-                                    <EditText
-                                        name="refranUno"
-                                        placeholder="__________________"
-                                        style={{ color: 'gray', marginLeft: "4px" }}
-                                        onSave={({ value }) => {
-                                            setRespuestas(prevState => ({
-                                                ...prevState,
-                                                [i]: value
-                                            }))
-                                        }}
-                                    />
+                                    <div className="refranes-container__item__text">
+                                        <span>{refran.comienzo}</span>
+                                        <EditText
+                                            name="refranUno"
+                                            placeholder="__________________"
+                                            style={{ color: 'gray', marginLeft: "4px" }}
+                                            onSave={({ value }) => {
+                                                setRespuestas(prevState => ({
+                                                    ...prevState,
+                                                    [i]: value
+                                                }))
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                             ))}
                         </Col>

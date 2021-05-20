@@ -12,6 +12,11 @@
         width: 100%;
         object-fit: cover;
         border-radius: 0.5rem;
+
+        @media screen and(max-width: 576px) {
+            max-height: 250px;
+            width: auto
+        }
     }
 
     &__right {
@@ -22,8 +27,6 @@
         align-items: center;
         height: 100%;
         // background-color: rgba($secondary-color, 0.1);
-        padding: 0 2rem;
-
 
         p {
             font-size: 1.25rem;
