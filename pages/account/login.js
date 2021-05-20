@@ -34,9 +34,9 @@ export default function LoginPage() {
                         <Form.Label>Contraseña</Form.Label>
                         <Form.Control value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Contraseña" />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <button className="my-btn" type="submit">
                         Iniciar Sesion
-                    </Button>
+                    </button>
                     <Form.Text className="text-muted">
                         ¿Aun no tienes una cuenta? <Link href="/account/register">Registrarse</Link>
                     </Form.Text>

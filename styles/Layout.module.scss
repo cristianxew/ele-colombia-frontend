@@ -11,6 +11,13 @@
     overflow-x: hidden;
 }
 
+.page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .pagina-inicio {
     padding: 2rem 2rem 4rem 2rem;
 }
@@ -20,5 +27,15 @@
     form {
         width: 60%;
         padding: 0 6rem;
+
+        @media screen and(max-width: 768px) {
+            width: 80%;
+            padding: 0 3rem;
+        }
+
+        @media screen and(max-width: 576px) {
+            width: 100%;
+            padding: 0 2rem;
+        }
     }
 }

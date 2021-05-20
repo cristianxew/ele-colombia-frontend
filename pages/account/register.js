@@ -51,9 +51,9 @@ export default function RegisterPage() {
                         <Form.Label>Confirmar Contraseña</Form.Label>
                         <Form.Control value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} type="password" placeholder="Confirmar Contraseña" />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <button className="my-btn" type="submit">
                         Registrarse
-                    </Button>
+                    </button>
                     <Form.Text className="text-muted">
                         ¿Ya tienes una cuenta?  <Link href="/account/login">Iniciar sesion</Link>
                     </Form.Text>
