@@ -12,15 +12,69 @@ import {
 
 class AudioPlayer extends React.Component {
 
-    constructor(props) {
+    /* constructor(props) {
         super(props);
-    }
+    } */
 
     state = {
         index: 0,
         currentTime: '0:00',
         pause: false,
     };
+
+
+    musicList = [
+        {
+            url: "/audios/A buen entendedor.mp3",
+            nombre: "A buen entendedor pocas palabras.",
+            duration: 4
+        },
+        {
+            url: "/audios/A cada marrano.mp3",
+            nombre: "A cada marrano le llega su nochebuena.",
+            duration: 4
+        },
+        {
+            url: "/audios/Al caído.mp3",
+            nombre: "Al caído, caerle.",
+            duration: 3
+        },
+        {
+            url: "/audios/Al mal tiempo.mp3",
+            nombre: "Al mal tiempo, buena cara.",
+            duration: 2
+        },
+        {
+            url: "/audios/Al que anda entre lamiel.mp3",
+            nombre: "Al que anda entre la miel, algo se le pega.",
+            duration: 3
+        },
+        {
+            url: "/audios/Barriga llena.mp3",
+            nombre: "Barriga llena, corazón contento.",
+            duration: 3
+        },
+        {
+            url: "/audios/Cada quien mata.mp3",
+            nombre: "Cada uno mata las pulgas a su manera.",
+            duration: 2
+        },
+        {
+            url: "/audios/Dos cabezas.mp3",
+            nombre: "Dos cabezas piensan mejor que una.",
+            duration: 2
+        },
+        {
+            url: "/audios/Hablando del rey.mp3",
+            nombre: "Hablando del rey de Roma y ahí asoma.",
+            duration: 3
+        },
+        {
+            url: "/audios/Hasta al mejor panadero.mp3",
+            nombre: "Hasta al mejor panadero se le quema el pan en la puerta del horno.",
+            duration: 7
+        },
+    ]
 
 
     componentDidMount() {
@@ -98,19 +152,19 @@ class AudioPlayer extends React.Component {
     }
 
     updatePlayer = () => {
-        const { musicList } = this.props;
+        // const { musicList } = this.props;
         const { index } = this.state;
-        const currentSong = musicList[index];
-        const audio = new Audio(currentSong.audio.url);
+        const currentSong = this.musicList[index];
+        const audio = new Audio(currentSong.url);
         this.playerRef.load();
     }
 
     nextSong = () => {
-        const { musicList } = this.props
+        // const { musicList } = this.props
         const { index, pause } = this.state;
 
         this.setState({
-            index: (index + 1) % musicList.length
+            index: (index + 1) % this.musicList.length
         });
         this.updatePlayer();
 
@@ -122,11 +176,11 @@ class AudioPlayer extends React.Component {
     };
 
     prevSong = () => {
-        const { musicList } = this.props
+        // const { musicList } = this.props
         const { index, pause } = this.state;
 
         this.setState({
-            index: (index + musicList.length - 1) % musicList.length
+            index: (index + this.musicList.length - 1) % this.musicList.length
         });
         this.updatePlayer();
 
@@ -139,10 +193,10 @@ class AudioPlayer extends React.Component {
 
 
     playOrPause = () => {
-        const { musicList } = this.props
+        // const { musicList } = this.props
         const { index, pause } = this.state;
-        const currentSong = musicList[index];
-        const audio = new Audio(currentSong.audio.url);
+        const currentSong = this.musicList[index];
+        const audio = new Audio(currentSong.url);
         if (!this.state.pause) {
             this.playerRef.play();
         } else {
@@ -166,7 +220,7 @@ class AudioPlayer extends React.Component {
 
 
     render() {
-        const { musicList } = this.props
+        const musicList = this.musicList
         const { index, currentTime, pause } = this.state;
         const currentSong = musicList[index];
 
@@ -183,8 +237,8 @@ class AudioPlayer extends React.Component {
                                         (index === key && pause ? 'play-now' : '')} >
                                     <div className="track-discr" >
                                         <span className="track-name" >{
-                                            music.nombre.length > 30 ?
-                                                `${music.nombre.substring(0, 30)}...` :
+                                            music.nombre.length > 50 ?
+                                                `${music.nombre.substring(0, 50)}...` :
                                                 music.nombre
                                         }</span>
                                         {/*   <span className="track-author" >Autor</span> */}
@@ -192,7 +246,7 @@ class AudioPlayer extends React.Component {
                                     <span className="track-duration" >
                                         {(index === key)
                                             ? currentTime
-                                            : this.formatTime(music.audio.duration)
+                                            : musicList.duration
                                         }
                                     </span>
                                 </div>
@@ -202,7 +256,7 @@ class AudioPlayer extends React.Component {
                     <Col lg={7}>
                         <div className="current-song">
                             <audio ref={ref => this.playerRef = ref}>
-                                <source src={currentSong.audio.url} />
+                                <source src={currentSong.url} />
                         Your browser does not support the audio element.
                     </audio>
                             <div className="img-wrap">
@@ -212,7 +266,7 @@ class AudioPlayer extends React.Component {
 
                             <div className="time">
                                 <div className="current-time">{currentTime}</div>
-                                <div className="end-time">{this.formatTime(currentSong.audio.duration)}</div>
+                                <div className="end-time">{this.formatTime(currentSong.duration)}</div>
                             </div>
 
                             <div ref={ref => this.timelineRef = ref} id="timeline">

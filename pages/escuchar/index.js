@@ -48,7 +48,7 @@ const Escuchar = ({ data }) => {
                 </div>
                 <div className="pagina-escuchar__audios">
                     <h1 className="title">Escucha los audios</h1>
-                    <AudioPlayer musicList={data.audio} />
+                    <AudioPlayer />
                 </div>
             </div>
         </Layout>
