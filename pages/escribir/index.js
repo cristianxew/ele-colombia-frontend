@@ -11,38 +11,29 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 
-const Escribir = ({ token }) => {
+const Escribir = ({ data, token }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [image, setImage] = useState(null)
     const [comentario, setComentario] = useState("")
     const [key, setKey] = useState(1)
 
-    const [refranes, setRefranes] = useState([
-        { comienzo: "A buen entendedor", final: "pocas palabras.", respuesta: null },
-        { comienzo: "Al caído,", final: "caerle.", respuesta: null },
-        { comienzo: "Al mal tiempo,", final: "buena cara.", respuesta: null },
-        { comienzo: "Hasta al mejor panadero", final: "se le quema el pan en la puerta del horno.", respuesta: null },
-        { comienzo: "A cada marrano le llega su", final: "nochebuena.", respuesta: null },
-        { comienzo: "Barriga llena,", final: "corazón contento.", respuesta: null },
-        { comienzo: "Cada uno mata las pulgas", final: "a su manera.", respuesta: null },
-        { comienzo: "Dos cabezas piensan", final: "mejor que una.", respuesta: null },
-        { comienzo: "Hablando del rey de Roma", final: "y ahí asoma.", respuesta: null },
-        { comienzo: "Al que anda entre la miel,", final: "algo se le pega.", respuesta: null },
-    ])
+    const { descripcionEnviarEvidencia, imagen, refranes, texto, titulo } = data
+
+    const [refraness, setRefraness] = useState(refranes)
     const [respuestas, setRespuestas] = useState([])
 
     const validateAnswers = () => {
-        let newState = [...refranes]
-        for (let i = 0; i < refranes.length; i++) {
+        let newState = [...refraness]
+        for (let i = 0; i < refraness.length; i++) {
             if (respuestas[i] === undefined) {
                 newState[i].respuesta = null
-                setRefranes(newState)
-            } else if (refranes[i].final.toLowerCase() === respuestas[i].toLowerCase()) {
+                setRefraness(newState)
+            } else if (refraness[i].final.toLowerCase() === respuestas[i].toLowerCase()) {
                 newState[i].respuesta = true
-                setRefranes(newState)
+                setRefraness(newState)
             } else {
                 newState[i].respuesta = false
-                setRefranes(newState)
+                setRefraness(newState)
             }
         }
     }
@@ -120,19 +111,27 @@ const Escribir = ({ token }) => {
                     <Row noGutters>
                         <Col md={10}>
                             <div className="pagina-escribir__top__title">
-                                <h1 className="title">Completa cada refrán</h1>
+                                <h1 className="title">{titulo}</h1>
+                                {texto && (
+                                    <p>{texto}</p>
+                                )}
                             </div>
                         </Col>
                         <Col md={2}>
-                            <Image loading="eager" priority={true} className="pagina-escribir__top__img" src="/poporo.png" layout="fill" />
+                            <Image
+                                loading="eager"
+                                priority={true}
+                                className="pagina-escribir__top__img"
+                                src={imagen.formats.small.url}
+                                layout="fill" />
                         </Col>
                     </Row>
                 </div>
                 <div className="refranes-container">
                     <Row>
                         <Col md={7}>
-                            {refranes.map((refran, i) => (
-                                <div key={i}
+                            {refraness.map((refran, i) => (
+                                <div key={refran.id}
                                     className={`refranes-container__item ${refran.respuesta ? "refranes-container__item--correct" : refran.respuesta === false ? "refranes-container__item--wrong" : ""}`}>
                                     <span className="refranes-container__item__number">{`${i + 1}`}</span>
                                     <div className="refranes-container__item__text">
@@ -153,46 +152,15 @@ const Escribir = ({ token }) => {
                             ))}
                         </Col>
                         <Col md={5}>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">a.</span>
-                                <span>a su manera.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">b.</span>
-                                <span>y ahí asoma.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">c.</span>
-                                <span>mejor que una.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">d.</span>
-                                <span>algo se le pega.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">e.</span>
-                                <span>pocas palabras.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">f.</span>
-                                <span>buena cara.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">g.</span>
-                                <span>caerle.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">h.</span>
-                                <span>se le quema el pan en la puerta del horno.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">i.</span>
-                                <span>nochebuena.</span>
-                            </div>
-                            <div className="refranes-container__item">
-                                <span className="refranes-container__item__number">j.</span>
-                                <span>corazón contento.</span>
-                            </div>
+                            <ul>
+                                {refraness.map(refran => {
+                                    return (
+                                        <li key={refran.id} className="refranes-container__item">
+                                            {refran.final}
+                                        </li>
+                                    )
+                                })}
+                            </ul>
                         </Col>
                     </Row>
                 </div>
@@ -201,7 +169,7 @@ const Escribir = ({ token }) => {
                 </div>
                 <div className="refranes-container__enviar-tarea">
                     <h1 className="title" >Enviar evidencia</h1>
-                    <p>Toma un screen-print o foto de sus respuestas y envíala a través del siguiente formulario</p>
+                    <p>{descripcionEnviarEvidencia}</p>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="imagen">
                             <Form.Label>Imagen</Form.Label>
@@ -222,14 +190,32 @@ const Escribir = ({ token }) => {
     )
 }
 
-export function getServerSideProps({ req }) {
+export async function getServerSideProps({ req }) {
     const { token } = parseCookies(req)
+
+    const res = await fetch(`${URL_API}/pagina-escribir`);
+    const data = await res.json();
+
 
     return {
         props: {
+            data,
             token,
         },
     }
 }
 
 export default Escribir
+
+/* [
+        { comienzo: "A buen entendedor", final: "pocas palabras.", respuesta: null },
+        { comienzo: "Al caído,", final: "caerle.", respuesta: null },
+        { comienzo: "Al mal tiempo,", final: "buena cara.", respuesta: null },
+        { comienzo: "Hasta al mejor panadero", final: "se le quema el pan en la puerta del horno.", respuesta: null },
+        { comienzo: "A cada marrano le llega su", final: "nochebuena.", respuesta: null },
+        { comienzo: "Barriga llena,", final: "corazón contento.", respuesta: null },
+        { comienzo: "Cada uno mata las pulgas", final: "a su manera.", respuesta: null },
+        { comienzo: "Dos cabezas piensan", final: "mejor que una.", respuesta: null },
+        { comienzo: "Hablando del rey de Roma", final: "y ahí asoma.", respuesta: null },
+        { comienzo: "Al que anda entre la miel,", final: "algo se le pega.", respuesta: null },
+    ] */

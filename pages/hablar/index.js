@@ -16,11 +16,13 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 
-const Hablar = ({ token }) => {
+const Hablar = ({ data, token }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [comentario, setComentario] = useState("")
     const [audio, setAudio] = useState(null)
     const { user } = useContext(AuthContext)
+
+    const { imagen, texto, titulo } = data
 
     const handleAudio = (blob) => {
         const audioFile = new File([blob], `hablar-tarea-${user.username || "colado"}.webm`)
@@ -99,12 +101,17 @@ const Hablar = ({ token }) => {
                     <Row noGutters>
                         <Col md={9}>
                             <div className="pagina-hablar__top__title">
-                                <h1 className="title">Ahora graba un audio, diciendo cada uno de los refranes aprendidos.</h1>
-                                <h6>Recuerda proyectar con la voz el sentido de cada uno de estos.</h6>
+                                <h1 className="title">{titulo}</h1>
+                                <p>{texto}</p>
                             </div>
                         </Col>
                         <Col md={3}>
-                            <Image loading="eager" priority={true} className="pagina-hablar__top__img" src="/transmilenio.png" layout="fill" />
+                            <Image
+                                loading="eager"
+                                priority={true}
+                                className="pagina-hablar__top__img"
+                                src={imagen.formats.small.url}
+                                layout="fill" />
                         </Col>
                     </Row>
                 </div>
@@ -129,11 +136,15 @@ const Hablar = ({ token }) => {
     );
 };
 
-export function getServerSideProps({ req }) {
+export async function getServerSideProps({ req }) {
     const { token } = parseCookies(req)
+    const res = await fetch(`${URL_API}/pagina-hablar`);
+    const data = await res.json();
+
 
     return {
         props: {
+            data,
             token,
         },
     }

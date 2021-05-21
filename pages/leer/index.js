@@ -13,64 +13,16 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-const Leer = ({ token }) => {
+const Leer = ({ data, token }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [image, setImage] = useState(null)
     const [comentario, setComentario] = useState("")
     const [key, setKey] = useState(1)
+    console.log(data)
 
-    const [refranes, setRefranes] = useState([
-        {
-            significado: "Una persona inteligente no necesita una explicación demasiado detallada para entender lo que se le está diciendo.",
-            refran: "A buen entendedor pocas palabras.",
-            respuesta: null
-        },
-        {
-            significado: "Alguien anda en una mala racha, le sucedió algo peor de lo que ya le había sucedido.",
-            refran: "Al caído, caerle.",
-            respuesta: null
-        },
-        {
-            significado: "Cuando las cosas van mal o se complican , lo más conveniente es enfrentarlas con la mejor actitud",
-            refran: "Al mal tiempo, buena cara.",
-            respuesta: null
-        },
-        {
-            significado: "Hasta los más experimentados pueden equivocarse",
-            refran: "Hasta al mejor panadero se le quema el pan en la puerta del horno.",
-            respuesta: null
-        },
-        {
-            significado: "Cada uno recibe su merecido.",
-            refran: "A cada marrano le llega su nochebuena.",
-            respuesta: null
-        },
-        {
-            significado: "Una vez saciado el apetito, uno se siente satisfecho y feliz.",
-            refran: "Barriga llena, corazón contento.",
-            respuesta: null
-        },
-        {
-            significado: "Se utiliza cuando en una conversación se está mencionando  a una persona ausente y justo en ese momento hace acto de presencia.",
-            refran: "Hablando del rey de Roma y ahí asoma.",
-            respuesta: null
-        },
-        {
-            significado: "Existen diferentes maneras de hacer las cosas.",
-            refran: "Cada uno mata las pulgas a su manera.",
-            respuesta: null
-        },
-        {
-            significado: "Dos o más personas pueden encontrar la solución a una problemática de forma más sencilla y rápida.",
-            refran: "Dos cabezas piensan mejor que una.",
-            respuesta: null
-        },
-        {
-            significado: "Alude al círculo en que las personas se encuentran inmersas y cómo esto influye en ellos en su manera de pensar y actuar.",
-            refran: "Al que anda entre la miel, algo se le pega.",
-            respuesta: null
-        },
-    ])
+    const { tituloPrincipal, tituloSignificados, imagen, imagenes, imagenesSituaciones, significadosRefranes, tituloImagenes, descripcionEnviarEvidencia } = data
+
+    const [refranes, setRefranes] = useState(significadosRefranes)
     const [respuestas, setRespuestas] = useState([])
 
     const validateAnswers = () => {
@@ -163,21 +115,23 @@ const Leer = ({ token }) => {
                         <Col md={9}>
                             <div className="pagina-leer__top__title">
 
-                                <h1 className="title">A continuación encuentran los significados
-                                de los refranes.</h1>
+                                <h1 className="title">{tituloPrincipal}</h1>
                             </div>
                         </Col>
                         <Col md={3}>
-                            <Image loading="eager" priority={true} className="pagina-leer__top__img" src="/tabla-bus.png" layout="fill" />
+                            <Image
+                                loading="eager"
+                                priority={true}
+                                className="pagina-leer__top__img"
+                                src={imagen.formats.small.url} layout="fill" />
                         </Col>
                     </Row>
                 </div>
                 <div className="pagina-leer__slider">
-                    <MySlider />
+                    <MySlider data={imagenes} />
                 </div>
                 <div className="refranes-container">
-                    <h1 className="title">escriban el refrán según
-                corresponda.</h1>
+                    <h1 className="title">{tituloSignificados}</h1>
                     <Row>
                         {refranes.map((refran, i) => (
                             <Col md={6} lg={4} key={i}>
@@ -199,6 +153,10 @@ const Leer = ({ token }) => {
                         ))}
                     </Row>
                 </div>
+                <div className="pagina-leer__slider">
+                    <h1 className="title">{tituloImagenes}</h1>
+                    <MySlider data={imagenesSituaciones} />
+                </div>
                 <div className="refranes-container__button" >
                     <button className="my-btn" onClick={validateAnswers} >Validar</button>
                 </div>
@@ -218,7 +176,7 @@ const Leer = ({ token }) => {
                 </div> */}
                 <div className="refranes-container__enviar-tarea">
                     <h1 className="title" >Enviar evidencia</h1>
-                    <p>Toma un screen-print o foto de sus respuestas y envíala a través del siguiente formulario</p>
+                    <p>{descripcionEnviarEvidencia}</p>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="image">
                             <Form.Label>Seleccionar imagen</Form.Label>
@@ -239,11 +197,14 @@ const Leer = ({ token }) => {
     )
 }
 
-export function getServerSideProps({ req }) {
+export async function getServerSideProps({ req }) {
     const { token } = parseCookies(req)
+    const res = await fetch(`${URL_API}/pagina-leer`);
+    const data = await res.json();
 
     return {
         props: {
+            data,
             token,
         },
     }
@@ -260,3 +221,56 @@ export function getServerSideProps({ req }) {
 } */
 
 export default Leer
+
+/* [
+        {
+            significado: "Una persona inteligente no necesita una explicación demasiado detallada para entender lo que se le está diciendo.",
+            refran: "A buen entendedor pocas palabras.",
+            respuesta: null
+        },
+        {
+            significado: "Alguien anda en una mala racha, le sucedió algo peor de lo que ya le había sucedido.",
+            refran: "Al caído, caerle.",
+            respuesta: null
+        },
+        {
+            significado: "Cuando las cosas van mal o se complican , lo más conveniente es enfrentarlas con la mejor actitud",
+            refran: "Al mal tiempo, buena cara.",
+            respuesta: null
+        },
+        {
+            significado: "Hasta los más experimentados pueden equivocarse",
+            refran: "Hasta al mejor panadero se le quema el pan en la puerta del horno.",
+            respuesta: null
+        },
+        {
+            significado: "Cada uno recibe su merecido.",
+            refran: "A cada marrano le llega su nochebuena.",
+            respuesta: null
+        },
+        {
+            significado: "Una vez saciado el apetito, uno se siente satisfecho y feliz.",
+            refran: "Barriga llena, corazón contento.",
+            respuesta: null
+        },
+        {
+            significado: "Se utiliza cuando en una conversación se está mencionando  a una persona ausente y justo en ese momento hace acto de presencia.",
+            refran: "Hablando del rey de Roma y ahí asoma.",
+            respuesta: null
+        },
+        {
+            significado: "Existen diferentes maneras de hacer las cosas.",
+            refran: "Cada uno mata las pulgas a su manera.",
+            respuesta: null
+        },
+        {
+            significado: "Dos o más personas pueden encontrar la solución a una problemática de forma más sencilla y rápida.",
+            refran: "Dos cabezas piensan mejor que una.",
+            respuesta: null
+        },
+        {
+            significado: "Alude al círculo en que las personas se encuentran inmersas y cómo esto influye en ellos en su manera de pensar y actuar.",
+            refran: "Al que anda entre la miel, algo se le pega.",
+            respuesta: null
+        },
+    ] */

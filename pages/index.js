@@ -5,18 +5,19 @@ import MapSection from '../components/MapSection'
 import TeacherInfo from '../components/TeacherInfo'
 import VideoSection from '../components/VideoSection'
 import { URL_API } from "../config/index"
-// import styles from '../styles/Home.module.scss'
 
 export default function Home({ data }) {
 
   const { user } = useContext(AuthContext)
 
+  const { seccion1, seccion2, footer } = data
+
   return (
     <Layout title="ELE Colombia">
       <div className="pagina-inicio">
-        <MapSection />
-        <VideoSection user={user} video={data.video} />
-        <TeacherInfo />
+        <MapSection data={seccion1} />
+        <VideoSection user={user} data={seccion2} />
+        <TeacherInfo data={footer} />
       </div>
     </Layout>
   )

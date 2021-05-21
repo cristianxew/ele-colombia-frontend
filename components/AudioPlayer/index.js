@@ -12,18 +12,19 @@ import {
 
 class AudioPlayer extends React.Component {
 
-    /* constructor(props) {
+    constructor(props) {
         super(props);
-    } */
+    }
 
     state = {
         index: 0,
         currentTime: '0:00',
         pause: false,
+        duration: 0,
+        musicList: this.props.data
     };
 
-
-    musicList = [
+    /* musicList = [
         {
             url: "/audios/A buen entendedor.mp3",
             nombre: "A buen entendedor pocas palabras.",
@@ -74,7 +75,7 @@ class AudioPlayer extends React.Component {
             nombre: "Hasta al mejor panadero se le quema el pan en la puerta del horno.",
             duration: 7
         },
-    ]
+    ] */
 
 
     componentDidMount() {
@@ -137,6 +138,7 @@ class AudioPlayer extends React.Component {
         const currentTime = this.formatTime(parseInt(this.playerRef.currentTime));
         this.setState({
             currentTime,
+            duration
         });
     }
 
@@ -153,66 +155,63 @@ class AudioPlayer extends React.Component {
 
     updatePlayer = () => {
         // const { musicList } = this.props;
-        const { index } = this.state;
-        const currentSong = this.musicList[index];
-        const audio = new Audio(currentSong.url);
+        const { index, musicList } = this.state;
+        const currentSong = musicList[index];
+        const audio = new Audio(currentSong.audio.url);
         this.playerRef.load();
     }
 
     nextSong = () => {
         // const { musicList } = this.props
-        const { index, pause } = this.state;
+        const { index, pause, musicList } = this.state;
 
         this.setState({
-            index: (index + 1) % this.musicList.length
+            index: (index + 1) % musicList.length,
         });
         this.updatePlayer();
 
         if (pause) {
-            setTimeout(() => {
-                this.playerRef.play();
-            }, 200)
+            this.playerRef.play();
         }
     };
 
     prevSong = () => {
         // const { musicList } = this.props
-        const { index, pause } = this.state;
+        const { index, pause, musicList } = this.state;
 
         this.setState({
-            index: (index + this.musicList.length - 1) % this.musicList.length
+            index: (index + musicList.length - 1) % musicList.length,
         });
         this.updatePlayer();
 
         if (pause) {
-            setTimeout(() => {
-                this.playerRef.play();
-            }, 200)
+            this.playerRef.play();
         }
     };
 
 
     playOrPause = () => {
         // const { musicList } = this.props
-        const { index, pause } = this.state;
-        const currentSong = this.musicList[index];
-        const audio = new Audio(currentSong.url);
+        const { index, pause, musicList } = this.state;
+        const currentSong = musicList[index];
+        const audio = new Audio(currentSong.audio.url);
         if (!this.state.pause) {
             this.playerRef.play();
         } else {
             this.playerRef.pause();
         }
         this.setState({
-            pause: !pause
+            pause: !pause,
         })
     }
 
     clickAudio = (key) => {
         const { pause } = this.state;
         this.setState({
-            index: key
+            index: key,
         });
         this.updatePlayer();
+
         if (pause) {
             this.playerRef.play();
         }
@@ -220,8 +219,8 @@ class AudioPlayer extends React.Component {
 
 
     render() {
-        const musicList = this.musicList
-        const { index, currentTime, pause } = this.state;
+        // const musicList = this.musicList
+        const { index, currentTime, pause, musicList, duration } = this.state;
         const currentSong = musicList[index];
 
         return (
@@ -241,12 +240,11 @@ class AudioPlayer extends React.Component {
                                                 `${music.nombre.substring(0, 50)}...` :
                                                 music.nombre
                                         }</span>
-                                        {/*   <span className="track-author" >Autor</span> */}
                                     </div>
                                     <span className="track-duration" >
                                         {(index === key)
                                             ? currentTime
-                                            : musicList.duration
+                                            : ""
                                         }
                                     </span>
                                 </div>
@@ -255,8 +253,8 @@ class AudioPlayer extends React.Component {
                     </Col>
                     <Col lg={7}>
                         <div className="current-song">
-                            <audio ref={ref => this.playerRef = ref}>
-                                <source src={currentSong.url} />
+                            <audio autoPlay={false} ref={ref => this.playerRef = ref}>
+                                <source src={currentSong.audio.url} />
                         Your browser does not support the audio element.
                     </audio>
                             <div className="img-wrap">
@@ -266,7 +264,7 @@ class AudioPlayer extends React.Component {
 
                             <div className="time">
                                 <div className="current-time">{currentTime}</div>
-                                <div className="end-time">{this.formatTime(currentSong.duration)}</div>
+                                <div className="end-time">{duration ? this.formatTime(duration) : "0:00"}</div>
                             </div>
 
                             <div ref={ref => this.timelineRef = ref} id="timeline">
