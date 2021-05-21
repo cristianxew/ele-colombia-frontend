@@ -206,16 +206,3 @@ export async function getServerSideProps({ req }) {
 }
 
 export default Escribir
-
-/* [
-        { comienzo: "A buen entendedor", final: "pocas palabras.", respuesta: null },
-        { comienzo: "Al caído,", final: "caerle.", respuesta: null },
-        { comienzo: "Al mal tiempo,", final: "buena cara.", respuesta: null },
-        { comienzo: "Hasta al mejor panadero", final: "se le quema el pan en la puerta del horno.", respuesta: null },
-        { comienzo: "A cada marrano le llega su", final: "nochebuena.", respuesta: null },
-        { comienzo: "Barriga llena,", final: "corazón contento.", respuesta: null },
-        { comienzo: "Cada uno mata las pulgas", final: "a su manera.", respuesta: null },
-        { comienzo: "Dos cabezas piensan", final: "mejor que una.", respuesta: null },
-        { comienzo: "Hablando del rey de Roma", final: "y ahí asoma.", respuesta: null },
-        { comienzo: "Al que anda entre la miel,", final: "algo se le pega.", respuesta: null },
-    ] */

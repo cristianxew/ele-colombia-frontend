@@ -18,7 +18,6 @@ const Leer = ({ data, token }) => {
     const [image, setImage] = useState(null)
     const [comentario, setComentario] = useState("")
     const [key, setKey] = useState(1)
-    console.log(data)
 
     const { tituloPrincipal, tituloSignificados, imagen, imagenes, imagenesSituaciones, significadosRefranes, tituloImagenes, descripcionEnviarEvidencia } = data
 
@@ -210,67 +209,4 @@ export async function getServerSideProps({ req }) {
     }
 }
 
-/* export async function getStaticProps() {
-    const res = await fetch(`${URL_API}/pagina-leer`);
-    const data = await res.json();
-
-    return {
-        props: { data },
-        revalidate: 1
-    }
-} */
-
 export default Leer
-
-/* [
-        {
-            significado: "Una persona inteligente no necesita una explicación demasiado detallada para entender lo que se le está diciendo.",
-            refran: "A buen entendedor pocas palabras.",
-            respuesta: null
-        },
-        {
-            significado: "Alguien anda en una mala racha, le sucedió algo peor de lo que ya le había sucedido.",
-            refran: "Al caído, caerle.",
-            respuesta: null
-        },
-        {
-            significado: "Cuando las cosas van mal o se complican , lo más conveniente es enfrentarlas con la mejor actitud",
-            refran: "Al mal tiempo, buena cara.",
-            respuesta: null
-        },
-        {
-            significado: "Hasta los más experimentados pueden equivocarse",
-            refran: "Hasta al mejor panadero se le quema el pan en la puerta del horno.",
-            respuesta: null
-        },
-        {
-            significado: "Cada uno recibe su merecido.",
-            refran: "A cada marrano le llega su nochebuena.",
-            respuesta: null
-        },
-        {
-            significado: "Una vez saciado el apetito, uno se siente satisfecho y feliz.",
-            refran: "Barriga llena, corazón contento.",
-            respuesta: null
-        },
-        {
-            significado: "Se utiliza cuando en una conversación se está mencionando  a una persona ausente y justo en ese momento hace acto de presencia.",
-            refran: "Hablando del rey de Roma y ahí asoma.",
-            respuesta: null
-        },
-        {
-            significado: "Existen diferentes maneras de hacer las cosas.",
-            refran: "Cada uno mata las pulgas a su manera.",
-            respuesta: null
-        },
-        {
-            significado: "Dos o más personas pueden encontrar la solución a una problemática de forma más sencilla y rápida.",
-            refran: "Dos cabezas piensan mejor que una.",
-            respuesta: null
-        },
-        {
-            significado: "Alude al círculo en que las personas se encuentran inmersas y cómo esto influye en ellos en su manera de pensar y actuar.",
-            refran: "Al que anda entre la miel, algo se le pega.",
-            respuesta: null
-        },
-    ] */
