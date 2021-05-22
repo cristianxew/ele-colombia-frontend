@@ -9,7 +9,8 @@ import {
     faPencilAlt,
     faSignOutAlt,
     faUserCircle,
-    faLock
+    faLock,
+    faTasks
 } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -17,6 +18,10 @@ import {
 const MenuLinks = ({ className }) => {
     const { user, logout } = useContext(AuthContext)
     const authenticatedLinks = [{
+        text: 'Guia',
+        link: '/guia',
+        icon: <FontAwesomeIcon icon={faTasks} />
+    }, {
         text: 'Escuchar',
         link: '/escuchar',
         icon: <FontAwesomeIcon icon={faAssistiveListeningSystems} />

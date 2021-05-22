@@ -1,0 +1,101 @@
+.pagina-guia {
+    padding: 2rem;
+
+    img {
+        object-fit: cover;
+        border-radius: 0.5rem;
+    }
+
+    section {
+        padding-bottom: 4rem;
+        padding-top: 4rem;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        }
+    }
+
+    .lista {
+        li {
+            font-size: 1.25rem;
+            line-height: 3rem;
+        }
+    }
+
+    .base-color {
+        color: $secondary-color;
+        font-weight: bold;
+    }
+
+    .lh-5 {
+        line-height: 2.5rem;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+    }
+
+    p {
+        font-size: 1.25rem;
+    }
+
+    &__seccion-titulo {
+
+        .row {
+            display: flex;
+            justify-content: center;
+
+            .title {
+                font-size: 3rem;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 2.5rem;
+            }
+
+            img {
+                border-radius: 0.5rem;
+            }
+        }
+    }
+
+    &__seccion-contenido {
+
+        .row {
+            .title {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+        }
+
+        &__lista {
+            margin-bottom: 3rem;
+
+            .row {
+                .col-md-6 {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+
+    }
+
+    &__seccion-habilidades {
+        &__list_items {
+            .row {
+                align-items: center;
+
+                &:nth-last-of-type(odd) {
+                    flex-direction: row-reverse;
+                }
+            }
+        }
+    }
+
+    .hecho-con-amor {
+        justify-content: center;
+    }
+}
