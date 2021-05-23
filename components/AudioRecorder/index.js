@@ -99,7 +99,10 @@ export default class AudioRecorder extends React.Component {
         return (
             <React.Fragment>
 
-                {this.state.audio && <audio src={this.state.audio} controls autoPlay />}
+                {this.props.audio &&
+                    <audio controls autoPlay >
+                        <source src={this.state.audio} type="audio/webm" />
+                    </audio>}
                 <div className="recorder">
                     <ReactWaves
                         className={'react-waves'}
@@ -120,7 +123,7 @@ export default class AudioRecorder extends React.Component {
                     />
                 </div>
                 {this.state.audio ? (
-                    <button onClick={this.reset} className="my-btn" >Borrar y grabar de nuevo</button>
+                    <button onClick={this.reset} className="my-btn" >Grabar de nuevo</button>
                 ) : (
                     <div className="recorder-buttons" onClick={this.toggleMic}>
                         {!this.state.micRecord ?

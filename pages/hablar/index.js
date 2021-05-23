@@ -18,7 +18,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 const Hablar = ({ data, token }) => {
     const [isLoading, setIsLoading] = useState(false)
-    const [comentario, setComentario] = useState("")
+    // const [comentario, setComentario] = useState("")
     const [audio, setAudio] = useState(null)
     const { user } = useContext(AuthContext)
 
@@ -44,7 +44,7 @@ const Hablar = ({ data, token }) => {
         const dataToSend = {}
         formData.append('ref', 'hablar-tareas')
         formData.append('field', 'refranes')
-        formData.append('comentario', comentario)
+        // formData.append('comentario', comentario)
 
         formData.forEach(function (value, key) {
             dataToSend[key] = value;
@@ -83,7 +83,7 @@ const Hablar = ({ data, token }) => {
             if (res.ok) {
                 setIsLoading(false)
                 setAudio(null)
-                setComentario("")
+                // setComentario("")
                 toast.success(`Gracias ${audioRef.user.username}, se ha enviado tu evidencia exitosamente`)
             } else {
                 setIsLoading(false)
@@ -116,21 +116,18 @@ const Hablar = ({ data, token }) => {
                     </Row>
                 </div>
                 <div className="pagina-hablar__audio-recorder">
-                    <AudioRecorder handleAudio={handleAudio} resetAudio={resetAudio} />
+                    <AudioRecorder audio={audio} handleAudio={handleAudio} resetAudio={resetAudio} />
                 </div>
-                <div className="pagina-hablar__enviar-tarea">
-                    <h1 className="title" >Enviar evidencia</h1>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="comentario">
-                            <Form.Label>Comentario</Form.Label>
-                            <Form.Control value={comentario} placeholder="Opcional" onChange={(e) => setComentario(e.target.value)} as="textarea" rows={3} />
-                        </Form.Group>
-                        <button className="my-btn" type="submit">
-                            Enviar
-                        </button>
-                        {isLoading && (<span className="enviando">Enviando...</span>)}
-                    </Form>
-                </div>
+                {audio && (
+                    <div className="pagina-hablar__enviar-tarea">
+                        <Form onSubmit={handleSubmit}>
+                            <button className="my-btn" type="submit">
+                                Enviar
+                            </button>
+                            {isLoading && (<span className="enviando">Enviando...</span>)}
+                        </Form>
+                    </div>
+                )}
             </div>
         </Layout>
     );

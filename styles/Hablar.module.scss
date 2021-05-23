@@ -32,8 +32,12 @@
         justify-content: center;
         border-top: 1px solid rgba(0, 0, 0, 0.125);
         border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-        padding: 2rem 0;
+        padding: 2rem 8rem;
         margin-bottom: 4rem;
+
+        @media screen and(max-width: 576px) {
+            padding: 2rem 4rem;
+        }
 
         .recorder-buttons {
             font-size: 3.5rem;
@@ -59,6 +63,9 @@
     }
 
     &__enviar-tarea {
+        display: flex;
+        justify-content: center;
+
         p {
             font-size: 1.25rem;
         }
