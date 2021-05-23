@@ -200,7 +200,7 @@
             }
 
             li {
-                font-size: 2rem;
+                font-size: 1.8rem;
                 font-weight: 500;
                 border-bottom: 1px solid rgba(0, 0, 0, .14);
                 display: flex;
@@ -225,6 +225,7 @@
                 i {
                     width: 2rem;
                     margin-right: 1.5rem;
+                    margin-left: 1rem;
                     color: $secondary-color;
                 }
 

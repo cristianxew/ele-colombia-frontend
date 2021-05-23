@@ -18,8 +18,8 @@ import {
 const MenuLinks = ({ className }) => {
     const { user, logout } = useContext(AuthContext)
     const authenticatedLinks = [{
-        text: 'Guia',
-        link: '/guia',
+        text: 'Orientaciones del curso',
+        link: '/orientaciones-del-curso',
         icon: <FontAwesomeIcon icon={faTasks} />
     }, {
         text: 'Escuchar',
