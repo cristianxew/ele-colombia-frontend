@@ -25,6 +25,6 @@ export default function Layout({ title, keywords, description, children }) {
 
 Layout.defaultProps = {
     title: "ELE Colombia",
-    description: "skadjksan asdknsak",
-    keywords: "asdsaklj sdklnsa aslkdsn",
+    description: "ELE Colombia es un curso virtual que busca desarrollar las competencias comunicativa sociolingüística y pragmática, las cuales hacen referencia a la capacidad de una persona para producir y entender adecuadamente expresiones lingüísticas en diferentes contexto de uso.",
+    keywords: "Aprender Español",
 }
