@@ -19,8 +19,19 @@ const Leer = ({ data, token }) => {
     const [comentario, setComentario] = useState("")
     const [key, setKey] = useState(1)
 
-    const { tituloPrincipal, tituloSignificados, imagen, imagenes, imagenesSituaciones, significadosRefranes, tituloImagenes, descripcionEnviarEvidencia } = data
-
+    const {
+        tituloPrincipal,
+        tituloSignificados,
+        imagen, imagenes,
+        imagenesSituaciones,
+        significadosRefranes,
+        tituloImagenes,
+        descripcionEnviarEvidencia,
+        descTareaCuestionario,
+        enlaceCuestionario,
+        nombreBotonCuestionario
+    } = data
+    console.log(data)
     const [refranes, setRefranes] = useState(significadosRefranes)
     const [respuestas, setRespuestas] = useState([])
 
@@ -152,27 +163,9 @@ const Leer = ({ data, token }) => {
                         ))}
                     </Row>
                 </div>
-                <div className="pagina-leer__slider">
-                    <h1 className="title">{tituloImagenes}</h1>
-                    <MySlider data={imagenesSituaciones} />
-                </div>
                 <div className="refranes-container__button" >
                     <button className="my-btn" onClick={validateAnswers} >Validar</button>
                 </div>
-                {/* <div className="refranes-container__refranes">
-                    <h1 className="title">Refranes</h1>
-                    <Row>
-                        <ul>
-                            {refranes.map((item, i) => {
-                                return (
-                                    <Col key={i} md={4}>
-                                        <li>{item.refran}</li>
-                                    </Col>
-                                )
-                            })}
-                        </ul>
-                    </Row>
-                </div> */}
                 <div className="refranes-container__enviar-tarea">
                     <h1 className="title" >Enviar evidencia</h1>
                     <p>{descripcionEnviarEvidencia}</p>
@@ -190,6 +183,14 @@ const Leer = ({ data, token }) => {
                         </button>
                         {isLoading && (<span className="enviando">Enviando...</span>)}
                     </Form>
+                </div>
+                <div className="pagina-leer__slider">
+                    <h1 className="title">{tituloImagenes}</h1>
+                    <MySlider data={imagenesSituaciones} />
+                </div>
+                <div className="pagina-leer__cuestionario">
+                    <p>{descTareaCuestionario}</p>
+                    <a href={enlaceCuestionario} className="my-btn">{nombreBotonCuestionario}</a>
                 </div>
             </div>
         </Layout>

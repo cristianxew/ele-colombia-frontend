@@ -166,6 +166,8 @@
         }
 
         &__enviar-tarea {
+            margin-bottom: 4rem;
+
             p {
                 font-size: 1.25rem;
             }
@@ -177,6 +179,23 @@
                 }
             }
         }
+    }
+
+    &__cuestionario {
+        margin-top: 2rem;
+
+        p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        a {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+
     }
 
 }
